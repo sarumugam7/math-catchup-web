@@ -2,31 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/math-catchup-web/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0f172a" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" crossorigin="anonymous" />
-    <link rel="stylesheet" crossorigin href="/math-catchup-web/assets/index-hoHp4g5_.css" />
     <title>Math Catch-Up</title>
   </head>
   <body>
-    <div id="root">Loading…</div>
-    <script type="module">
-      const n = 12;
-      const texts = await Promise.all(
-        Array.from({ length: n }, (_, i) =>
-          fetch(`/math-catchup-web/assets/app.b64.${i}.txt`).then((r) => {
-            if (!r.ok) throw new Error('Missing chunk ' + i);
-            return r.text();
-          }),
-        ),
-      );
-      const bin = Uint8Array.from(atob(texts.join('')), (c) => c.charCodeAt(0));
-      const ds = new DecompressionStream('gzip');
-      const stream = new Blob([bin]).stream().pipeThrough(ds);
-      const code = await new Response(stream).text();
-      const blob = new Blob([code], { type: 'text/javascript' });
-      await import(URL.createObjectURL(blob));
-    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
