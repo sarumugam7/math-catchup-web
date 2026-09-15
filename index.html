@@ -12,21 +12,23 @@
   <body>
     <div id="root">Loading…</div>
     <script type="module">
-      async function loadJoined(url) {
-        const t = await fetch(url).then((r) => {
-          if (!r.ok) throw new Error('Failed ' + url);
-          return r.text();
-        });
-        return t.replace(/\n/g, '');
+      function b64ToUint8(b64) {
+        const bin = atob(b64);
+        const bytes = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return bytes;
       }
+      const n = 52;
       const parts = await Promise.all(
-        [0, 1, 2, 3].map((i) =>
-          loadJoined(`/math-catchup-web/assets/app.part${i}.js`),
+        Array.from({ length: n }, (_, i) =>
+          fetch(`/math-catchup-web/assets/b64/b${String(i).padStart(2, '0')}.txt`).then((r) => {
+            if (!r.ok) throw new Error('Failed b64 chunk ' + i);
+            return r.text();
+          }),
         ),
       );
-      const url = URL.createObjectURL(
-        new Blob([parts.join('')], { type: 'text/javascript' }),
-      );
+      const bytes = b64ToUint8(parts.join(''));
+      const url = URL.createObjectURL(new Blob([bytes], { type: 'text/javascript' }));
       await import(url);
     </script>
   </body>
