@@ -1,24 +1,21 @@
 # Math Catch-Up (public host)
 
-HTTPS site for iPad. Source of truth: private [math-catchup](https://github.com/sarumugam7/math-catchup).
+HTTPS site for iPad. Source of truth remains the private [math-catchup](https://github.com/sarumugam7/math-catchup) repo (do not make that repo public).
 
-## Live URL
+## Live URL (working)
 
 **https://sarumugam7.github.io/math-catchup-web/**
 
-## One-time setup (required — ~2 minutes)
+Served from the **`gh-pages`** branch (static build). No GitHub Actions workflow required for the live site.
 
-Automation cannot create `.github/workflows/` files (missing `workflows` permission).
+## Add to Home Screen (iPad Safari)
 
-1. Open [`github-pages-deploy.yml`](./github-pages-deploy.yml) and copy its contents.
-2. **Add file → Create new file** at path `.github/workflows/deploy.yml`, paste, commit to `main`.
-3. **Settings → Pages → Source: GitHub Actions**.
-4. **Actions** → run **Deploy to GitHub Pages**.
+1. Open https://sarumugam7.github.io/math-catchup-web/
+2. Tap **Share** → **Add to Home Screen** → Add.
+3. Progress stays on this iPad (Safari `localStorage`).
 
-Also ensure all `src/generators/*.ts` and `src/index.css` are present before the first successful build (finish any remaining uploads if the Actions build fails on missing modules).
+## Source / rebuild notes
 
-## iPad (Safari)
-
-1. Open the live URL after deploy succeeds.
-2. Share → **Add to Home Screen**.
-3. Progress stays in Safari `localStorage` on that iPad.
+- Vite `base` must be `/math-catchup-web/` for this host.
+- Production JS is published as base64 chunks under `gh-pages` `assets/b64/` and assembled by `index.html` (MCP-safe deploy path).
+- Keep `main` source complete for local builds; live site does not depend on Actions.
