@@ -1,14 +1,19 @@
-# Math Catch-Up (public web host)
+# Math Catch-Up (public host)
 
-Static build of the Math Catch-Up practice app for iPad HTTPS access.
+HTTPS static site for iPad practice. Source of truth: private repo [math-catchup](https://github.com/sarumugam7/math-catchup).
 
-- **Source (private):** https://github.com/sarumugam7/math-catchup
-- **Live site (after Pages is on):** https://sarumugam7.github.io/math-catchup-web/
+## Live URL
 
-## Enable GitHub Pages (one click)
+**https://sarumugam7.github.io/math-catchup-web/**
 
-1. Open **Settings → Pages**
-2. **Build and deployment → Source:** Deploy from a branch
-3. Branch: **main** / folder: **/ (root)** → Save
+### One-time Pages setup
 
-Then open the live URL on the iPad (Safari → Share → Add to Home Screen).
+1. **Settings → Pages → Build and deployment → Source: GitHub Actions**
+2. If the workflow file is only at repo root as `github-pages-deploy.yml`, copy it to `.github/workflows/deploy.yml` and commit.
+3. Actions tab → run **Deploy to GitHub Pages** (or push to `main`).
+
+### iPad (Safari)
+
+1. Open the live URL
+2. Share → **Add to Home Screen**
+3. Progress stays in Safari `localStorage` on that iPad
