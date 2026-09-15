@@ -12,9 +12,13 @@
   <body>
     <div id="root">Loading…</div>
     <script type="module">
+      const n = 12;
       const texts = await Promise.all(
-        [0, 1, 2, 3].map((i) =>
-          fetch(`/math-catchup-web/assets/app.b64.${i}.txt`).then((r) => r.text()),
+        Array.from({ length: n }, (_, i) =>
+          fetch(`/math-catchup-web/assets/app.b64.${i}.txt`).then((r) => {
+            if (!r.ok) throw new Error('Missing chunk ' + i);
+            return r.text();
+          }),
         ),
       );
       const bin = Uint8Array.from(atob(texts.join('')), (c) => c.charCodeAt(0));
